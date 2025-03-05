@@ -1,3 +1,14 @@
+---
+title: 第一篇文章
+date: 2023-04-27 14:49:00
+description: 文章介绍
+image: ./assets/img/background1.webp
+tags:
+  - '测试'
+  - '标题'
+  - '文章'
+---
+
 # xiaoqvan 的个人主页
 
 这里是 xiaoqvan 的个人主页，使用 vue3 + vite + JS 构建
@@ -175,7 +186,3 @@ export default defineConfig({
 
 - [Bangumi](https://bangumi.github.io/api/)
 - [Hitokoto](https://hitokoto.cn/)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=xiaoqvan/xiaoqvan.github.io&type=Date)](https://star-history.com/#xiaoqvan/xiaoqvan.github.io&Date)

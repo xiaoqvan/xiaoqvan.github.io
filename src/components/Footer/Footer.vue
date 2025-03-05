@@ -1,4 +1,4 @@
-<script setup lang="ts" name="Footer">
+<script setup name="Footer">
 import { ref, computed } from 'vue'
 import { Footer } from '@/config/Footer'
 

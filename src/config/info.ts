@@ -1,11 +1,11 @@
 import { Me } from '@/types/config'
+import tx from '@/assets/img/tx.jpg'
 export const me: Me = {
   // 【个人信息界面】
   // 名称
   name: 'xiaoqvan',
   // 头像
-  avatar:
-    'https://dlink.host/sharepoint/aHR0cHM6Ly9tZW5taWFvY3ktbXkuc2hhcmVwb2ludC5jb20vOmk6L2cvcGVyc29uYWwveGlhb3F2YW5fMzY1X21lbmdhY2dfY29tL0VYV0U5TjAzS2tSS3ByRmZkd2JFVzJBQkVnaVN4ZFRyb1pLZ3c0T0RBMHdqZ0E.jpg',
+  avatar: tx,
   // 个人简介
   introduction: '欢迎来到我的个人主页',
   // 社交链接 (不需要的可以注释推荐最少2-3个)

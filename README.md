@@ -169,7 +169,3 @@ export default defineConfig({
 
 - [Bangumi](https://bangumi.github.io/api/)
 - [Hitokoto](https://hitokoto.cn/)
-
-## Star History
-
-[![Star History Chart](https://api.star-history.com/svg?repos=xiaoqvan/xiaoqvan.github.io&type=Date)](https://star-history.com/#xiaoqvan/xiaoqvan.github.io&Date)

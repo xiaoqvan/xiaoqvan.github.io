@@ -1,11 +1,82 @@
-<script name="Article_list">
+<script setup name="Article_list">
+import { ref, onMounted } from 'vue'
+import { useRouter } from 'vue-router'
 
+const articles = ref([])
+const mdFiles = import.meta.glob('../../markdown/*.md')
+
+const imageFiles = import.meta.glob('../../assets/img/*', { eager: true })
+
+const router = useRouter()
+
+
+function processImagePath(imagePath) {
+  if (!imagePath) return '';
+
+
+  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
+    return imagePath;
+  }
+
+
+  if (imagePath.startsWith('./assets/')) {
+
+    const relativePath = imagePath.replace('./', '../../');
+    try {
+
+      const imageModule = imageFiles[relativePath];
+      if (imageModule) {
+        return imageModule.default;
+      }
+    } catch (e) {
+      console.error('Failed to load image:', relativePath);
+    }
+  }
+  return imagePath;
+}
+
+function goToDetail(path) {
+  // 从路径中提取文件名
+  const filename = path.split('/').pop().replace('.md', '')
+  router.push(`/article/${filename}`)
+}
+
+onMounted(async () => {
+  for (const path in mdFiles) {
+    const mod = await mdFiles[path]();
+
+    const imagePath = mod.attributes?.image || '';
+    const processedImagePath = processImagePath(imagePath);
+
+    articles.value.push({
+      title: mod.attributes?.title || '无标题',
+      date: mod.attributes?.date || new Date().toISOString(),
+      updated: mod.attributes?.updated || '',
+      category: mod.attributes?.type || '默认分类',
+      tags: mod.attributes?.tags || [],
+      summary: mod.attributes?.description || '',
+      image: processedImagePath,
+      link: path.replace('../../markdown/', '/markdown/'),
+      path: path,
+    })
+  }
+
+  articles.value.sort((a, b) => new Date(b.date) - new Date(a.date))
+})
+
+function formatDate(dateStr) {
+  return new Date(dateStr).toLocaleDateString()
+}
+
+function getTagStyle(tag) {
+  return {}
+}
 </script>
 
 <template>
   <div class="content__right">
-    <!-- 遍历文章列表 -->
-    <!-- <div v-for="(article, index) in articles" :key="index" class="article Theme_colors Frosted_glass">
+    <div v-for="(article, index) in articles" :key="index" class="article Theme_colors Frosted_glass"
+      @click="goToDetail(article.path)" style="cursor: pointer;">
       <div class="article1">
         <div class="">
           <h1>{{ article.title }}</h1>
@@ -13,8 +84,9 @@
         <div class="article_info">
           <div>
             <p><i class="fa-solid fa-calendar-days"></i> {{ formatDate(article.date) }}
-              <span v-if="article.date !== article.updated">- <i class="fa-solid fa-pen"></i> {{
-                formatDate(article.updated) }}</span>
+              <span v-if="article.date !== article.updated"><span v-if="article.updated !== ''"> - <i
+                    class="fa-solid fa-pen"></i>{{
+                      formatDate(article.updated) }}</span></span>
             </p>
           </div>
           <div>
@@ -34,7 +106,7 @@
       <a class="article_img" :href="article.link">
         <img :src="article.image" alt="文章图片" />
       </a>
-    </div> -->
+    </div>
   </div>
 </template>
 
