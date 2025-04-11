@@ -36,7 +36,7 @@ watch(hitokoto, () => {
       <div class="card">
         <div class="me">
           <div class="me-avatar">
-            <img src="../assets/img/tx.png" alt="">
+            <img :src="me.avatar" alt="">
           </div>
           <div class="info">
             <p class="name">{{ me.name }}</p>

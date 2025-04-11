@@ -1,39 +1,16 @@
 <script setup name="Article_list">
 import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
+import { processImagePath } from '@/utils/image-utils'
 
 const articles = ref([])
 const mdFiles = import.meta.glob('../../markdown/*.md')
-
 const imageFiles = import.meta.glob('../../assets/img/*', { eager: true })
+
 
 const router = useRouter()
 
 
-function processImagePath(imagePath) {
-  if (!imagePath) return '';
-
-
-  if (imagePath.startsWith('http://') || imagePath.startsWith('https://')) {
-    return imagePath;
-  }
-
-
-  if (imagePath.startsWith('./assets/')) {
-
-    const relativePath = imagePath.replace('./', '../../');
-    try {
-
-      const imageModule = imageFiles[relativePath];
-      if (imageModule) {
-        return imageModule.default;
-      }
-    } catch (e) {
-      console.error('Failed to load image:', relativePath);
-    }
-  }
-  return imagePath;
-}
 
 function goToDetail(path) {
   // 从路径中提取文件名
@@ -46,7 +23,7 @@ onMounted(async () => {
     const mod = await mdFiles[path]();
 
     const imagePath = mod.attributes?.image || '';
-    const processedImagePath = processImagePath(imagePath);
+    const processedImagePath = processImagePath(imagePath, imageFiles);
 
     articles.value.push({
       title: mod.attributes?.title || '无标题',
@@ -103,7 +80,7 @@ function getTagStyle(tag) {
           <p>{{ article.summary }}</p>
         </div>
       </div>
-      <a class="article_img" :href="article.link">
+      <a class="article_img" @click="goToDetail(article.path)">
         <img :src="article.image" alt="文章图片" />
       </a>
     </div>
