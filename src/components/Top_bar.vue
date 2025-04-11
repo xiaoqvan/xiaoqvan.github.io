@@ -13,7 +13,7 @@ const isHome = computed(() => route.name === 'home' || route.path === '/');
 
 
 <template>
-  <div :class="['top', { 'home-style': isHome, 'other-style Theme_colors': !isHome }]">
+  <div :class="['top', { 'home-style': isHome, 'other-style Theme_colors Frosted_glass': !isHome }]">
     <div class="topbar">
       <div class="left">
         <!-- 标题 -->
@@ -61,7 +61,8 @@ const isHome = computed(() => route.name === 'home' || route.path === '/');
 }
 
 .other-style {
-  border-radius: 0 0 20px 20px;
+  border-radius: 20px;
+  margin-top: 10px;
   max-width: 80%;
 }
 
