@@ -1,6 +1,6 @@
-import { Game } from '../types/config'
+import { GamesConfig } from '@/types/types'
 
-export const games: Game = {
+export const games: GamesConfig = {
   games: [
     {
       gameclass: 'genshi',

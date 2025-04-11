@@ -1,5 +1,6 @@
-import { Footer as FooterType } from '@/types/config'
-export const Footer: FooterType = {
+import { FooterConfig } from '@/types/types'
+
+export const Footer: FooterConfig = {
   // 【底部栏】
   // icp备案号(没有可为空)
   icp: '蜀ICP备2023029793号-1',

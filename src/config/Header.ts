@@ -1,5 +1,6 @@
-import { Header } from '@/types/config'
-export const header: Header = {
+import { HeaderConfig } from '@/types/types'
+
+export const header: HeaderConfig = {
   // 网站标题
   title: 'xiaoqvan',
 }

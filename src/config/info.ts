@@ -1,6 +1,7 @@
-import { Me } from '@/types/config'
-import tx from '@/assets/img/tx.jpg'
-export const me: Me = {
+import tx from '@/assets/img/tx.png'
+import { MeConfig } from '@/types/types'
+
+export const me: MeConfig = {
   // 【个人信息界面】
   // 名称
   name: 'xiaoqvan',

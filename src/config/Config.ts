@@ -1,6 +1,6 @@
-import { Config } from '@/types/config'
+import { AppConfig } from '@/types/types'
 
-export const config: Config = {
+export const config: AppConfig = {
   // 【背景图片】
   // 填写背景图片链接
   // 外部图片使用
