@@ -3,13 +3,24 @@
 import axios from 'axios'
 
 export class CalendarItem {
-  constructor(id, url, images, name_cn, name, rating) {
+  constructor(id, url, images, name_cn, name, rating, air_date, collection, rank, summary) {
     this.id = id
-    this.url = url
+    this.url = url?.replace('http://', 'https://')
     this.images = images
-    this.name_cn = name_cn
+      ? Object.fromEntries(
+          Object.entries(images).map(([key, value]) => [
+            key,
+            value?.replace('http://', 'https://'),
+          ]),
+        )
+      : null
+    this.name_cn = name_cn || name
     this.name = name
     this.rating = rating
+    this.air_date = air_date
+    this.collection = collection
+    this.rank = rank
+    this.summary = summary
   }
 }
 
@@ -30,20 +41,7 @@ export async function fetchCalendarData() {
   } else {
     try {
       const response = await axios.get('https://api.bgm.tv/calendar')
-      const data = response.data.map((day) => {
-        day.items = day.items.map((item) => {
-          item.url = item.url.replace('http://', 'https://')
-          item.images = Object.fromEntries(
-            Object.entries(item.images).map(([key, value]) => [
-              key,
-              value.replace('http://', 'https://'),
-            ]),
-          )
-          return item
-        })
-        return day
-      })
-      localStorage.setItem('calendarData', JSON.stringify(data))
+      localStorage.setItem('calendarData', JSON.stringify(response.data))
       localStorage.setItem('lastFetchTime', currentTime.toString())
       return response.data
     } catch (error) {
