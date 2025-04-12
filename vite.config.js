@@ -14,7 +14,7 @@ export default defineConfig({
     vueDevTools(),
     vueSetupExtend(),
     mdPlugin({
-      mode: ['html', 'toc'],
+      mode: ['html', 'toc', 'vue'], // 同时支持 HTML 内容和 Vue 组件模式
       markdownIt: {
         html: true,
         linkify: true,

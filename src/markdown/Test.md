@@ -2,12 +2,13 @@
 title: 第一篇文章
 date: 2023-04-27 14:49:00
 description: 文章介绍
-image: ./assets/img/background1.webp
 tags:
   - '测试'
   - '标题'
   - '文章'
 ---
+
+![主页](../assets/img/background1.webp)
 
 # xiaoqvan 的个人主页
 
@@ -28,7 +29,7 @@ tags:
 ## 主页界面
 
 xiaoqvan 的个人主页
-![主页](/screenshots/image.png)
+![主页](../assets/img/background10.webp)
 
 ### 预览
 

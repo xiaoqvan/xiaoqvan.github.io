@@ -27,43 +27,21 @@ import background from "@/components/formerbg.vue"
 </template>
 
 <style scoped>
-.main {
+.main__content {
   display: flex;
-  flex-direction: column;
-  align-items: center;
-
-}
-
-.box {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.box1 {
-  display: flex;
-  width: 80%;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
 }
 
 .container {
-  display: flex;
-  width: 120%;
-  box-sizing: border-box;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 100px;
-  padding: 30px;
-  border-radius: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 15px;
 }
 
-/* 主内容区 */
-
-.main__content {
-  display: flex;
-  width: 100%;
-  box-sizing: border-box;
+.box {
+  margin-top: 100px;
 }
 </style>
