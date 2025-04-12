@@ -1,1 +1,0 @@
-const e="/assets/tx-C77PYFN2.png",t=Object.freeze(Object.defineProperty({__proto__:null,default:e},Symbol.toStringTag,{value:"Module"})),o={icp:"蜀ICP备2023029793号-1",footername:"xiaoqvan",footerlink:"https://xiaoqvan.top",beian_enabled:!1,beian_link:"",beian_imgSrc:"",beian_text:""};export{o as F,t as _,e as t};
