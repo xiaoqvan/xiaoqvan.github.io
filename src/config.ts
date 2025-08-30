@@ -5,7 +5,7 @@ import type { HeaderConfig, DefaultConfig, MyhkMusicConfig, MeConfig, FooterConf
  */
 export const defaultConfig: DefaultConfig = {
   /** 网站标题 */
-  title: "xiaoqvan",
+  title: "xiaoqvan的主页",
   /** 网站描述 */
   description: "xiaoqvan的个人网站",
 };
