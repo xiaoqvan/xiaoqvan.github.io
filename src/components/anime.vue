@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import { fetchCalendarData } from '@/assets/js/anime';
-import type { Anime } from '@/types/anime';
+import type { Anime, AnimeDay, AnimeItem } from '@/types/anime';
 import { faSpinner, faCircleExclamation } from '@fortawesome/free-solid-svg-icons';
 
 const calendarData = ref<Anime>([]);
@@ -9,6 +9,14 @@ const isError = ref<boolean>(false);
 onMounted(async () => {
   try {
     const data = await fetchCalendarData();
+    // 替换 images.large 的 http 为 https
+    data.forEach((day: AnimeDay) => {
+      day.items.forEach((anime: AnimeItem) => {
+        if (anime.images?.large && anime.images.large.startsWith('http:')) {
+          anime.images.large = anime.images.large.replace('http:', 'https:');
+        }
+      });
+    });
     calendarData.value = data;
     addScrollListener();
     handleDynamicContent();
@@ -22,6 +30,14 @@ async function fetchData() {
   try {
     isError.value = false;
     const data = await fetchCalendarData();
+    // 替换 images.large 的 http 为 https
+    data.forEach((day: AnimeDay) => {
+      day.items.forEach((anime: AnimeItem) => {
+        if (anime.images?.large && anime.images.large.startsWith('http:')) {
+          anime.images.large = anime.images.large.replace('http:', 'https:');
+        }
+      });
+    });
     calendarData.value = data;
   } catch (error) {
     isError.value = true;

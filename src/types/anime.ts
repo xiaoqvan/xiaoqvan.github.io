@@ -68,7 +68,7 @@ interface AnimeCollection {
 /**
  * 动画单条信息
  */
-interface AnimeItem {
+export interface AnimeItem {
   /** 动画 ID */
   id: number;
   /** 动画链接 */
