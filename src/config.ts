@@ -5,7 +5,7 @@ import type { HeaderConfig, DefaultConfig, MyhkMusicConfig, MeConfig, FooterConf
  */
 export const defaultConfig: DefaultConfig = {
   /** 网站标题 */
-  title: "xiaoqvan的主页",
+  title: "萌喵次元权的主页",
   /** 网站描述 */
   description: "xiaoqvan的个人网站",
 };
@@ -49,8 +49,8 @@ export const me: MeConfig = {
     { href: "https://qm.qq.com/q/xwIReHzTLG", title: "添加QQ", icon: "qq" },
     { href: "https://space.bilibili.com/171896697", title: "bilibili", icon: "bilibili" },
     { href: "https://github.com/xiaoqvan", title: "前往GitHub", icon: "github" },
-    { href: "https://twitter.com/xiao_qvan668", title: "前往x-twitter", icon: "x-twitter" },
-    { href: "https://t.me/xiaoqvan", title: "前往Telegram", icon: "telegram" },
+    // { href: "https://twitter.com/xiao_qvan668", title: "前往x-twitter", icon: "x-twitter" },
+    // { href: "https://t.me/xiaoqvan", title: "前往Telegram", icon: "telegram" },
   ],
 };
 
