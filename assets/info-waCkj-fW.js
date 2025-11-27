@@ -1,1 +1,0 @@
-import{M as i}from"./main-Fd6IdUzy.js";const a={name:"xiaoqvan",avatar:i,introduction:"欢迎来到我的个人主页",socialLinks:[{href:"https://qm.qq.com/q/xwIReHzTLG",title:"添加QQ",icon:"fa-qq"},{href:"https://space.bilibili.com/171896697",title:"bilibili",icon:"fa-bilibili"},{href:"https://github.com/xiaoqvan",title:"前往GitHub",icon:"fa-github"}]};export{a as m};
