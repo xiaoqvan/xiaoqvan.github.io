@@ -60,7 +60,7 @@ export const me: MeConfig = {
 export const Footer: FooterConfig = {
   // 【底部栏】
   // icp备案号(没有可为空)
-  icp: "蜀ICP备2023029793号-1",
+  icp: "",
   // 底部名称
   footername: "xiaoqvan",
   // 底部名称跳转链接
