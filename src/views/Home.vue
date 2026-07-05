@@ -54,7 +54,7 @@ const icon: Record<string, IconDefinition> = {
     <div class="flex justify-between text-white w-[90%] gap-40 mt-30 md:mt-0">
       <div class="flex flex-col gap-10 w-full md:w-[520px]">
         <div class="flex items-center gap-5">
-          <div class="w-24 h-24 rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center">
+          <div class="w-24 h-24 rounded-full overflow-hidden shrink-0 flex items-center justify-center">
             <img :src="me.avatar" alt="avatar">
           </div>
           <div>

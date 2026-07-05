@@ -11,6 +11,20 @@ interface SongItem {
   index: number;
 }
 
+/** KSC 逐字歌词字符 */
+interface KscChar {
+  char: string;
+  /** 高亮进度 0~100 */
+  progress: number;
+}
+
+/** KSC 逐字歌词行 */
+interface KscLine {
+  chars: KscChar[];
+  startTime: number;
+  endTime: number;
+}
+
 /**
  * 获取播放器信息
  * @returns 播放器详细信息
@@ -21,11 +35,12 @@ export function usePlayerInfo() {
   const duration = ref(0); // 总时长(秒)
   const songName = ref(""); // 歌曲名称
   const playing = ref(false); // 是否正在播放
-  const lrcList = ref<LrcItem[]>([]); // 明确指定数组类型
+  const lrcList = ref<LrcItem[]>([]); // 歌词列表
   const curLrcIndex = ref(-1); // 当前歌词索引
   const songList = ref<SongItem[]>([]); // 播放列表
   const curSongIndex = ref(-1); // 当前歌曲索引
   const tips = ref(""); // 提示信息
+  const kscLines = ref<KscLine[]>([]); // KSC 逐字歌词
 
   // 将时间字符串转换为秒数
   const timeToSeconds = (timeStr: string) => {
@@ -116,6 +131,56 @@ export function usePlayerInfo() {
     if (tipsElement) {
       tips.value = tipsElement.textContent || "";
     }
+
+    // 从 #myhkKsc 提取 KSC 逐字歌词（解析 DOM 结构）
+    kscLines.value = parseKscFromDom();
+  };
+
+  /**
+   * 从 #myhkKsc 的 DOM 结构中解析 KSC 逐字歌词
+   * 明月浩空播放器的 KSC 结构：
+   *   <div id="KscEndXXX" class="KscStartYYY line line1 b">
+   *     <div class="bg"><span><em dir="持续时间(百分之一秒)">字符</em></span>...</div>
+   *     <div class="lighter"><span><em dir="持续时间" style="width:100%">字符</em></span>...</div>
+   *   </div>
+   */
+  const parseKscFromDom = (): KscLine[] => {
+    const lines: KscLine[] = [];
+    const myhkKsc = document.querySelector("#myhkKsc");
+    if (!myhkKsc) return lines;
+
+    const lineEls = myhkKsc.querySelectorAll("div[id^='KscEnd']");
+    lineEls.forEach((lineEl) => {
+      const className = lineEl.className || "";
+      // 从 class 中提取开始时间: KscStart189
+      const startMatch = className.match(/KscStart(\d+)/);
+      // 从 id 中提取结束时间: KscEnd30
+      const endMatch = /KscEnd(\d+)/.exec(lineEl.id);
+      const startTime = startMatch ? Number(startMatch[1]) : 0;
+      const endTime = endMatch ? Number(endMatch[1]) : 0;
+
+      // 读取 bg 层中的字符（带有 dir 属性）
+      const bgDiv = lineEl.querySelector("div.bg");
+      if (!bgDiv) return;
+
+      const chars: KscChar[] = [];
+      const spans = bgDiv.querySelectorAll<HTMLSpanElement>("span");
+      spans.forEach((span) => {
+        const em = span.querySelector<HTMLElement>("em");
+        if (em) {
+          const char = em.textContent || "";
+          if (char) {
+            chars.push({ char, progress: 0 });
+          }
+        }
+      });
+
+      if (chars.length > 0) {
+        lines.push({ chars, startTime, endTime });
+      }
+    });
+
+    return lines;
   };
 
   // 创建 MutationObserver 实例
@@ -129,6 +194,11 @@ export function usePlayerInfo() {
         updatePlayerInfo();
       }
     });
+  });
+
+  // 专门监听 body 变化，确保 #myhkKsc 等外部脚本添加的元素也能被捕获
+  const bodyObserver = new MutationObserver(() => {
+    updatePlayerInfo();
   });
 
   // 使用现有的控制函数并将信息绑定到 Media Session（自动同步歌名/封面/播放状态）
@@ -159,10 +229,17 @@ export function usePlayerInfo() {
         updatePlayerInfo();
       }
     }, 1000);
+
+    // 同时监听 body，确保外部脚本添加的元素（如 #myhkKsc）也能触发更新
+    bodyObserver.observe(document.body, {
+      childList: true,
+      subtree: true,
+    });
   });
 
   onUnmounted(() => {
     observer.disconnect();
+    bodyObserver.disconnect();
   });
 
   return {
@@ -173,6 +250,7 @@ export function usePlayerInfo() {
     playing,
     lrcList,
     curLrcIndex,
+    kscLines,
     songList,
     curSongIndex,
     tips,

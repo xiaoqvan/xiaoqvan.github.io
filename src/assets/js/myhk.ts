@@ -37,6 +37,12 @@ const hideElements = () => {
         if (myhkTipsDiv) {
           myhkTipsDiv.style.display = 'none'
         }
+
+        // 隐藏 #myhkKsc
+        const myhkKscDiv = document.getElementById('myhkKsc')
+        if (myhkKscDiv) {
+          myhkKscDiv.style.display = 'none'
+        }
       }
     })
   })
